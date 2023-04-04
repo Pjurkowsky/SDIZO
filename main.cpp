@@ -1,28 +1,53 @@
 #include <iostream>
-#include "DoubleLinkedList.h"
-#include "Array.h"
-#include "Heap.h"
+#include "lists/DoubleLinkedList.h"
+#include "lists/Array.h"
+#include "trees/Heap.h"
+#include "utils/Menu.h"
+#include "utils/Timer.h"
+#include "trees/RedAndBlackTree.h"
+#include <vector>
+#include "utils/RandomGenerator.h"
 
 int main()
 {
+  Array *array = new Array();
+  DoubleLinkedList *doubleLinkedList = new DoubleLinkedList();
+  Heap *heap = new Heap();
+  RedAndBlackTree *rab = new RedAndBlackTree();
+  std::vector<MenuItem2> listItems = {{"Display"},
+                                      {"addFront"},
+                                      {"addBack"},
+                                      {"addAtIndex"},
+                                      {"removeFromFront"},
+                                      {"removeFromBack"},
+                                      {"removeFromIndex"},
+                                      {"find"},
+                                      {"readFromFile"},
+                                      {"writeToFile"},
+                                      {"exit"}};
 
-    Heap heap;
+  std::vector<MenuItem2> treeItems = {{"display"},
+                                      {"push"},
+                                      {"pop"},
+                                      {"find"},
+                                      {"readFromFile"},
+                                      {"writeToFile"},
+                                      {"exit"}};
 
-    heap.push(6);
-    heap.push(10);
-    heap.push(8);
-    heap.push(2);
-    heap.push(16);
-    heap.push(5);
-    heap.push(7);
+  std::vector<MenuItem2> testModeItems = {{"generate file with x random data"},
+                                          {"test PUSH operation on every data structure x times"},
+                                          {"test POP operation on every data structure x times"},
+                                          {"test FIND operation on every data structure x times"},
+                                          {"exit"}};
 
-    heap.push(15);
+  std::vector<MenuItem> menuItems = {{"Array", array, {listItems}},
+                                     {"Double Linked List", doubleLinkedList, {listItems}},
+                                     {"Heap", heap, {treeItems}},
+                                     {"Red and Black Tree", rab, {treeItems}},
+                                     {"Test mode", nullptr, {testModeItems}},
+                                     {"exit", nullptr, {}}};
 
-    heap.push(3);
-    heap.push(20);
-    heap.display();
-    heap.pop();
-    heap.display();
-
-    return 0;
+  Menu menu(menuItems);
+  menu.run();
+  return 0;
 }
