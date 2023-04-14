@@ -13,7 +13,7 @@ void Menu::run()
         for (auto item : menuItems)
             std::cout << i++ << ": " << item.str << "\n";
         std::cin >> i;
-        if (i == 6)
+        if (i == 7)
             exit(0);
         innerLoop = true;
         while (innerLoop)

@@ -87,7 +87,8 @@ void Menu::testMode(L list, T tree, std::string type)
             Array *array = new Array();
             DoubleLinkedList *dll = new DoubleLinkedList();
             Heap *heap = new Heap();
-            RedAndBlackTree *bst = new RedAndBlackTree();
+            RedAndBlackTree *rabt = new RedAndBlackTree();
+            AVLTree *avl = new AVLTree();
             if (type == "find" || type == "pop")
             {
                 for (int j = 0; j < x[n]; j++)
@@ -95,7 +96,8 @@ void Menu::testMode(L list, T tree, std::string type)
                     array->addFront(arr[j]);
                     dll->addFront(arr[j]);
                     heap->push(arr[j]);
-                    bst->push(arr[j]);
+                    rabt->push(arr[j]);
+                    avl->push(arr[j]);
                 }
                 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
                 shuffle(arr, arr + x[n], std::default_random_engine(seed));
@@ -103,27 +105,23 @@ void Menu::testMode(L list, T tree, std::string type)
 
             for (int j = 0; j < x[n] - 1; j++)
             {
-                //   auto fa = std::bind(list, array, arr[j]);
-                //  auto fd = std::bind(list, dll, arr[j]);
-                //  auto fh = std::bind(tree, heap, arr[j]);
-                // auto fb = std::bind(tree, bst, arr[j]);
-
-                //     structur e_time_sums[0][n] += timer.getElapsedTime(fa);
-                //    structure_time_sums[1][n] += timer.getElapsedTime(fd);
-                //   structure_time_sums[2][n] += timer.getElapsedTime(fh);
+                auto farr = std::bind(list, array, arr[j]);
+                auto fdll = std::bind(list, dll, arr[j]);
+                auto fheap = std::bind(tree, heap, arr[j]);
+                auto frabt = std::bind(tree, rabt, arr[j]);
+                auto favl = std::bind(tree, avl, arr[j]);
+                structure_time_sums[0][n] += timer.getElapsedTime(farr);
+                structure_time_sums[1][n] += timer.getElapsedTime(fdll);
+                structure_time_sums[2][n] += timer.getElapsedTime(fheap);
+                structure_time_sums[3][n] += timer.getElapsedTime(favl);
+                structure_time_sums[4][n] += timer.getElapsedTime(frabt);
             }
-
-            auto start = std::chrono::high_resolution_clock::now();
-
-            auto end = std::chrono::high_resolution_clock::now();
-            auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            structure_time_sums[3][n] += elapsed.count();
-            std::cout << structure_time_sums[3][n] << " ";
             delete[] arr;
             delete array;
             delete dll;
             delete heap;
-            delete bst;
+            delete rabt;
+            delete avl;
         }
         std::cout << "Finished " << x[n] << " elements" << '\n';
     }
@@ -134,7 +132,7 @@ void Menu::testMode(L list, T tree, std::string type)
         file_array << x[i] << " ";
         for (int j = 0; j < 5; j++)
         {
-            structure_time_sums[j][i] /= y;
+            structure_time_sums[j][i] /= y * x[i];
             file_array << structure_time_sums[j][i] << " ";
         }
         file_array << '\n';
