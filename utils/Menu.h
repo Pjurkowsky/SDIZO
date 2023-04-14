@@ -18,6 +18,7 @@
 #include "../trees/RedAndBlackTree.h"
 #include "../trees/Tree.h"
 #include "../trees/Heap.h"
+#include "../trees/AVLTree.h"
 
 #include "../lists/Array.h"
 #include "../lists/DoubleLinkedList.h"
@@ -79,6 +80,7 @@ void Menu::testMode(L list, T tree, std::string type)
 
     for (int n = 0; n < z; n++)
     {
+        std::cout << "Testing " << x[n] << " elements" << '\n';
         for (int i = 0; i < y; i++)
         {
             int *arr = rg.generateArrayOfIntegers(x[n]);
@@ -86,7 +88,6 @@ void Menu::testMode(L list, T tree, std::string type)
             DoubleLinkedList *dll = new DoubleLinkedList();
             Heap *heap = new Heap();
             RedAndBlackTree *bst = new RedAndBlackTree();
-
             if (type == "find" || type == "pop")
             {
                 for (int j = 0; j < x[n]; j++)
@@ -94,30 +95,37 @@ void Menu::testMode(L list, T tree, std::string type)
                     array->addFront(arr[j]);
                     dll->addFront(arr[j]);
                     heap->push(arr[j]);
+                    bst->push(arr[j]);
                 }
                 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
                 shuffle(arr, arr + x[n], std::default_random_engine(seed));
             }
 
-            for (int j = 0; j < x[n]; j++)
+            for (int j = 0; j < x[n] - 1; j++)
             {
-                auto fa = std::bind(list, array, arr[j]);
-                auto fd = std::bind(list, dll, arr[j]);
-                auto fh = std::bind(tree, heap, arr[j]);
-                auto fb = std::bind(tree, bst, arr[j]);
+                //   auto fa = std::bind(list, array, arr[j]);
+                //  auto fd = std::bind(list, dll, arr[j]);
+                //  auto fh = std::bind(tree, heap, arr[j]);
+                // auto fb = std::bind(tree, bst, arr[j]);
 
-                structure_time_sums[0][n] += timer.getElapsedTime(fa);
-                structure_time_sums[1][n] += timer.getElapsedTime(fd);
-                structure_time_sums[2][n] += timer.getElapsedTime(fh);
-                structure_time_sums[3][n] += timer.getElapsedTime(fb);
+                //     structur e_time_sums[0][n] += timer.getElapsedTime(fa);
+                //    structure_time_sums[1][n] += timer.getElapsedTime(fd);
+                //   structure_time_sums[2][n] += timer.getElapsedTime(fh);
             }
 
+            auto start = std::chrono::high_resolution_clock::now();
+
+            auto end = std::chrono::high_resolution_clock::now();
+            auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+            structure_time_sums[3][n] += elapsed.count();
+            std::cout << structure_time_sums[3][n] << " ";
             delete[] arr;
             delete array;
             delete dll;
             delete heap;
             delete bst;
         }
+        std::cout << "Finished " << x[n] << " elements" << '\n';
     }
 
     file_array << "liczba_danych tablica_dynamiczna double_linked_list kopiec_maksymalny drzewo_czerwono-czarne drzewo_AVL\n";
@@ -126,7 +134,7 @@ void Menu::testMode(L list, T tree, std::string type)
         file_array << x[i] << " ";
         for (int j = 0; j < 5; j++)
         {
-            structure_time_sums[j][i] /= y * x[i];
+            structure_time_sums[j][i] /= y;
             file_array << structure_time_sums[j][i] << " ";
         }
         file_array << '\n';

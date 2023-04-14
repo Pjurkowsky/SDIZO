@@ -14,7 +14,8 @@ int main()
   DoubleLinkedList *doubleLinkedList = new DoubleLinkedList();
   Heap *heap = new Heap();
   RedAndBlackTree *rab = new RedAndBlackTree();
-  std::vector<MenuItem2> listItems = {{"Display"},
+  AVLTree *avl = new AVLTree();
+  std::vector<MenuItem2> listItems = {{"display"},
                                       {"addFront"},
                                       {"addBack"},
                                       {"addAtIndex"},
@@ -27,6 +28,7 @@ int main()
                                       {"exit"}};
 
   std::vector<MenuItem2> treeItems = {{"display"},
+                                      {"pretty display"},
                                       {"push"},
                                       {"pop"},
                                       {"find"},
@@ -44,6 +46,7 @@ int main()
                                      {"Double Linked List", doubleLinkedList, {listItems}},
                                      {"Heap", heap, {treeItems}},
                                      {"Red and Black Tree", rab, {treeItems}},
+                                     {"AVL Tree", avl, {treeItems}},
                                      {"Test mode", nullptr, {testModeItems}},
                                      {"exit", nullptr, {}}};
 

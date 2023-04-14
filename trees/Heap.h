@@ -9,13 +9,14 @@
 class Heap : public Tree
 {
 public:
-
-    Heap();
-    ~Heap();
-    std::string toString();
-    void push(int data);
-    void pop(int data);
-    Node* find(int data);
+    Heap();                                                          // constructor
+    ~Heap();                                                         // destructor
+    std::string toString();                                          // return a string representation of the tree
+    void display();                                                  // display the tree
+    void display(const std::string &prefix, int index, bool isLeft); // display the tree
+    void push(int data);                                             // insert a node
+    void pop(int data);                                              // delete a node
+    Node *find(int data);                                            // find a node
 
 private:
     int *_data;

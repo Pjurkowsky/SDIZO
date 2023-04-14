@@ -1,24 +1,24 @@
-#ifndef REDANDBLACKTREE_H
-#define REDANDBLACKTREE_H
+#ifndef AVLTree_H
+#define AVLTree_H
 
 #include <iostream>
 #include <sstream>
 #include "Tree.h"
-class RedAndBlackTree : public Tree
+class AVLTree : public Tree
 {
 public:
     struct Node : public Tree::Node
     {
         int key;
-        char color;
+        int height;
         Node *parent;
         Node *left;
         Node *right;
-        Node(int data) : Tree::Node(data), key(data), color('B'), parent(nullptr), left(nullptr), right(nullptr){};
+        Node(int data) : Tree::Node(data), key(data), height(0), parent(nullptr), left(nullptr), right(nullptr){};
     };
 
-    RedAndBlackTree();                                                      // constructor
-    ~RedAndBlackTree();                                                     // destructor
+    AVLTree();                                                              // constructor
+    ~AVLTree();                                                             // destructor
     std::string toString();                                                 // return a string representation of the tree
     void display(const std::string &prefix, const Node *node, bool isLeft); // display the tree
     void display();                                                         // display the tree
@@ -28,13 +28,8 @@ public:
 
 private:
     void inorderTraversal(Node *root, std::stringstream &ss); // traverse the tree in order
-    void pushFix(Node *k);                                    // fix the tree after insertion
-    void popFix(Node *z);                                     // fix the tree after deletion
     void leftRotate(Node *x);                                 // rotate the tree to the left
     void rightRotate(Node *x);                                // rotate the tree to the right
-    Node *findSuccessor(Node *x);                             // find the successor of a node
-    void transplant(Node *u, Node *v);                        // replace a node with another node
     Node *root;
-    Node *nil;
 };
 #endif

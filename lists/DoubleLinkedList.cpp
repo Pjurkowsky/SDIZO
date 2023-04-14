@@ -5,7 +5,7 @@ DoubleLinkedList::DoubleLinkedList() : head(nullptr), tail(nullptr) {}
 DoubleLinkedList::~DoubleLinkedList()
 {
     Node *next;
-    while (head != nullptr)
+    while (head != nullptr) // delete all nodes
     {
         next = head->next;
         delete head;
@@ -13,6 +13,7 @@ DoubleLinkedList::~DoubleLinkedList()
     }
 }
 
+// converts data from list to string
 std::string DoubleLinkedList::toString()
 {
     Node *current = head;
@@ -26,6 +27,7 @@ std::string DoubleLinkedList::toString()
     return str;
 }
 
+// display the list in reverse order
 void DoubleLinkedList::displayReverse()
 {
     Node *current = tail;
@@ -37,32 +39,34 @@ void DoubleLinkedList::displayReverse()
     std::cout << "\n";
 }
 
+// adds data to front of list
 void DoubleLinkedList::addFront(int data)
 {
     Node *newNode = new Node(data);
-    if (head == nullptr)
+    if (head == nullptr) // if list is empty add new node and return
     {
         head = newNode;
         tail = newNode;
         return;
     }
-
+    // otherwise add node to front
     head->prev = newNode;
     newNode->next = head;
     head = newNode;
 }
 
+// adds data to back of list
 void DoubleLinkedList::addBack(int data)
 {
     Node *newNode = new Node(data);
 
-    if (head == nullptr)
+    if (head == nullptr) // if list is empty add new node and return
     {
         head = newNode;
         tail = newNode;
         return;
     }
-
+    // otherwise add node to back
     tail->next = newNode;
     newNode->prev = tail;
     tail = newNode;
@@ -72,9 +76,9 @@ void DoubleLinkedList::addAtIndex(int index, int data)
 {
     int i = 0;
     Node *current = head;
-    while (current != nullptr)
+    while (current != nullptr) // iterate through list until index is reached
     {
-        if (i == index)
+        if (i == index) // if index is reached add node
         {
             Node *newNode = new Node(data);
             newNode->next = current;
@@ -88,29 +92,31 @@ void DoubleLinkedList::addAtIndex(int index, int data)
     }
 }
 
+// removes first element from list
 void DoubleLinkedList::removeFromFront()
 {
-    if (head == nullptr)
+    if (head == nullptr) // if list is empty return
         return;
-    if (head == tail)
+    if (head == tail) // if list has one element delete it and return
     {
         delete head;
         head = nullptr;
         tail = nullptr;
         return;
     }
-
+    // otherwise delete head and set new head to next node
     Node *temp = head->next;
     delete head;
     head = temp;
     head->prev = nullptr;
 }
 
+// removes last element from list
 void DoubleLinkedList::removeFromBack()
 {
-    if (head == nullptr)
+    if (head == nullptr) // if list is empty return
         return;
-    if (head == tail)
+    if (head == tail) // if list has one element delete it and return
     {
         delete head;
         head = nullptr;
@@ -118,27 +124,29 @@ void DoubleLinkedList::removeFromBack()
         return;
     }
 
+    // otherwise delete tail and set new tail to previous node
     Node *temp = tail->prev;
     delete tail;
     tail = temp;
     tail->next = nullptr;
 }
 
+// removes element at index from list
 void DoubleLinkedList::remove(int data)
 {
     int i = 0;
     Node *current = head;
-    while (current != nullptr)
+    while (current != nullptr) // iterate through list until index is reached
     {
         if (current->data == data)
         {
-            if (current->prev != nullptr)
+            if (current->prev != nullptr) // if node is not head
                 current->prev->next = current->next;
-            if (current->next != nullptr)
+            if (current->next != nullptr) // if node is not tail
                 current->next->prev = current->prev;
-            if (current == head)
+            if (current == head) // if node is head
                 head = current->next;
-            if (current == tail)
+            if (current == tail) // if node is tail
                 tail = current->prev;
 
             delete current;
@@ -148,16 +156,17 @@ void DoubleLinkedList::remove(int data)
     }
 }
 
+// find a node
 bool DoubleLinkedList::find(int number)
 {
     Node *current = head;
-    while (current != nullptr)
+    while (current != nullptr) // iterate through list until index is reached
     {
-        if (current->data == number)
+        if (current->data == number) // if index is reached return true
             return true;
         current = current->next;
     }
-    return false;
+    return false; // if index is not reached return false
 }
 
 DoubleLinkedList::Node::Node(int data) : data(data), next(nullptr), prev(nullptr) {}

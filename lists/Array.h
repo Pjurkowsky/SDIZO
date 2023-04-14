@@ -7,16 +7,16 @@
 class Array : public List
 {
 public:
-    Array();
-    ~Array();
-    std::string toString();
-    void addFront(int data);
-    void addBack(int data);
-    void addAtIndex(int index, int data);
-    void removeFromFront();
-    void removeFromBack();
-    void remove(int data);
-    bool find(int data);
+    Array();                              // constructor
+    ~Array();                             // destructor
+    std::string toString();               // return a string representation of the list
+    void addFront(int data);              // insert a node at front
+    void addBack(int data);               // insert a node at back
+    void addAtIndex(int index, int data); // insert a node at index
+    void removeFromFront();               // delete a node from front
+    void removeFromBack();                // delete a node from back
+    void remove(int data);                // delete a node
+    bool find(int data);                  // find a node
 
 private:
     int *_data;

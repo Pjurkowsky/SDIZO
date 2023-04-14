@@ -26,9 +26,9 @@ void Menu::run()
 
             if (i == 1 || i == 2)
                 listFunctions(i - 1, j);
-            else if (i == 3 || i == 4)
+            else if (i == 3 || i == 4 || i == 5)
                 treeFunctions(i - 1, j);
-            else if (i == 5)
+            else if (i == 6)
                 testModeFunctions(j);
         }
     }
@@ -112,31 +112,46 @@ void Menu::treeFunctions(int i, int j)
         waitForUser();
         break;
     case 2:
-        tree->push(getIntInput("Write a number to add: "));
+        system("clear");
+        tree->display();
+        waitForUser();
         break;
     case 3:
+    {
+        auto start = std::chrono::high_resolution_clock::now();
+
+        tree->push(getIntInput("Write a number to add: "));
+
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        double essa = elapsed.count();
+        std::cout << essa;
+        waitForUser();
+        system("clear");
+    }
+    break;
+    case 4:
         tree->pop(getIntInput("Write a number to delete: "));
         break;
-    case 4:
+    case 5:
         tree->find(getIntInput("Write a number to search for: "));
         break;
-    case 5:
+    case 6:
     {
-
         std::ifstream file(getStringInput("Write a filename to read from: "));
         while (file >> x)
             tree->push(x);
         file.close();
     }
     break;
-    case 6:
+    case 7:
     {
         std::ofstream file(getStringInput("Write a filename to write to: "));
         file << tree->toString();
         file.close();
     }
     break;
-    case 7:
+    case 8:
         innerLoop = false;
         break;
     }
