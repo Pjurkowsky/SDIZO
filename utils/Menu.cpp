@@ -125,7 +125,6 @@ void Menu::treeFunctions(int i, int j)
     case 3:
     {
         tree->push(getIntInput("Write a number to add: "));
-        waitForUser();
         system(CLEAR);
     }
     break;
