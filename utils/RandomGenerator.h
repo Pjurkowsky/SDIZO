@@ -8,10 +8,10 @@
 class RandomGenerator
 {
 public:
-    RandomGenerator();
-    int generateRandomInteger();
-    int *generateArrayOfIntegers(size_t size);
-    void generateFile(std::string filename, int numbers);
+    RandomGenerator();                                    // constructor
+    int generateRandomInteger();                          // generates random integer
+    int *generateArrayOfIntegers(size_t size);            // generates array of random integers
+    void generateFile(std::string filename, int numbers); // generates file with random integers
 
 private:
     unsigned seed;

@@ -7,13 +7,13 @@ RandomGenerator::RandomGenerator()
     std::seed_seq sd{rd(), rd(), rd(), rd()};
     std::mt19937 rng(sd);
 }
-
+// generates random integer
 int RandomGenerator::generateRandomInteger()
 {
     std::uniform_int_distribution<int> uint_dist(-2147483648, 2147483647);
     return uint_dist(rng);
 }
-
+// generates array of random integers
 int *RandomGenerator::generateArrayOfIntegers(size_t size)
 {
     int *x = new int[size];
@@ -28,7 +28,7 @@ int *RandomGenerator::generateArrayOfIntegers(size_t size)
     }
     return x;
 }
-
+// generates file with random integers
 void RandomGenerator::generateFile(std::string filename, int numbers)
 {
 

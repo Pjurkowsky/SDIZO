@@ -25,24 +25,25 @@
 class Menu
 {
 public:
-    Menu(std::vector<MenuItem> menuItems);
-    void run();
+    Menu(std::vector<MenuItem> menuItems); // constructor
+    void run();                            // runs menu
 
 private:
-    void waitForUser();
-    void listFunctions(int i, int j);
-    void treeFunctions(int i, int j);
-    void testModeFunctions(int j);
-    int getIntInput(std::string message);
-    std::string getStringInput(std::string message);
+    void waitForUser();                              // waits for user to press enter
+    void listFunctions(int i, int j);                // displays list functions and calls them
+    void treeFunctions(int i, int j);                // displays tree functions and calls them
+    void testModeFunctions(int j);                   // displays test mode functions and calls them
+    int getIntInput(std::string message);            // gets int input from user
+    std::string getStringInput(std::string message); // gets string input from user
     std::vector<MenuItem> menuItems;
     bool innerLoop;
-    void testLists();
-    void testLists(std::string type, int z, int y, int *x);
+    void testLists();                                       // tests list functions
+    void testLists(std::string type, int z, int y, int *x); // tests list functions
     template <class L, class T>
-    void testMode(L list, T tree, std::string type);
+    void testMode(L list, T tree, std::string type); // tests push pop find functions
 };
 
+// tests push pop find functions
 template <class L, class T>
 void Menu::testMode(L list, T tree, std::string type)
 {

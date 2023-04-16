@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <sstream>
+
 #include "Tree.h"
+
 class RedAndBlackTree : public Tree
 {
 public:

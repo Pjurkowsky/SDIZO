@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include <iostream>
+
 #include "../utils/Structure.h"
 
 class Tree : public Structure

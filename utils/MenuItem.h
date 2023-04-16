@@ -2,8 +2,10 @@
 #define MENUITEM_H
 
 #include <iostream>
-#include "Structure.h"
 #include <vector>
+
+#include "Structure.h"
+
 struct MenuItem2
 {
     std::string str;

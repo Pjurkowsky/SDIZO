@@ -3,7 +3,7 @@
 Menu::Menu(std::vector<MenuItem> menuItems) : menuItems(menuItems), innerLoop(false)
 {
 }
-
+// runs menu
 void Menu::run()
 {
     while (true)
@@ -33,7 +33,7 @@ void Menu::run()
         }
     }
 }
-
+// waits for user to press enter
 void Menu::waitForUser()
 {
     std::cin.clear();
@@ -41,7 +41,7 @@ void Menu::waitForUser()
     std::cout << "Press any key to continue . . .\n";
     std::cin.get();
 }
-
+// displays list functions and calls them
 void Menu::listFunctions(int i, int j)
 {
     int x, y;
@@ -98,7 +98,7 @@ void Menu::listFunctions(int i, int j)
         break;
     }
 }
-
+// displays tree functions and calls them
 void Menu::treeFunctions(int i, int j)
 {
     int x, y;
@@ -160,7 +160,7 @@ void Menu::treeFunctions(int i, int j)
         break;
     }
 }
-
+// displays test mode functions and calls them
 void Menu::testModeFunctions(int j)
 {
     int x, y;
@@ -218,6 +218,7 @@ void Menu::testModeFunctions(int j)
         break;
     }
 }
+// gets int input from user
 int Menu::getIntInput(std::string message)
 {
     int x;
@@ -225,6 +226,7 @@ int Menu::getIntInput(std::string message)
     std::cin >> x;
     return x;
 }
+// gets string input from user
 std::string Menu::getStringInput(std::string message)
 {
     std::string x;
@@ -232,7 +234,7 @@ std::string Menu::getStringInput(std::string message)
     std::cin >> x;
     return x;
 }
-
+// tests list functions
 void Menu::testLists()
 {
     int z, y;
@@ -256,6 +258,7 @@ void Menu::testLists()
     delete x;
     waitForUser();
 }
+// tests list functions
 void Menu::testLists(std::string type, int z, int y, int *x)
 {
     Timer timer;

@@ -5,8 +5,7 @@
 class Structure
 {
 public:
-    virtual std::string toString() = 0;
-
+    virtual std::string toString() = 0; // returns string representation of structure
 };
 
 #endif

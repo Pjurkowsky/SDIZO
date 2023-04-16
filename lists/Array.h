@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <cstring>
+
 #include "List.h"
+
 class Array : public List
 {
 public:
