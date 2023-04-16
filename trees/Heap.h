@@ -2,9 +2,10 @@
 #define HEAP_H
 
 #include <iostream>
-#include <cstring>
+#include <string>
 #include <math.h>
 #include <iomanip>
+#include <cstring>
 
 #include "Tree.h"
 

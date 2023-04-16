@@ -2,7 +2,7 @@
 #define DOUBLELINKEDLIST_H
 
 #include <iostream>
-#include <cstring>
+#include <string>
 
 #include "List.h"
 

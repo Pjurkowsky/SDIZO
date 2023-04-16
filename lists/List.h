@@ -2,7 +2,9 @@
 #define LIST_H
 
 #include <iostream>
+
 #include "../utils/Structure.h"
+
 class List : public Structure
 {
 public:

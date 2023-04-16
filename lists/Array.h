@@ -2,6 +2,7 @@
 #define ARRAY_H
 
 #include <iostream>
+#include <string>
 #include <cstring>
 
 #include "List.h"
