@@ -124,14 +124,7 @@ void Menu::treeFunctions(int i, int j)
         break;
     case 3:
     {
-        auto start = std::chrono::high_resolution_clock::now();
-
         tree->push(getIntInput("Write a number to add: "));
-
-        auto end = std::chrono::high_resolution_clock::now();
-        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-        double essa = elapsed.count();
-        std::cout << essa;
         waitForUser();
         system(CLEAR);
     }
