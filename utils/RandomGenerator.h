@@ -4,12 +4,14 @@
 #include <iostream>
 #include <chrono>
 #include <random>
+#include <fstream>
 class RandomGenerator
 {
 public:
     RandomGenerator();
     int generateRandomInteger();
     int *generateArrayOfIntegers(size_t size);
+    void generateFile(std::string filename, int numbers);
 
 private:
     unsigned seed;

@@ -13,7 +13,7 @@ void Menu::run()
         for (auto item : menuItems)
             std::cout << i++ << ": " << item.str << "\n";
         std::cin >> i;
-        if (i == 7)
+        if (i == 6)
             exit(0);
         innerLoop = true;
         while (innerLoop)
@@ -26,9 +26,9 @@ void Menu::run()
 
             if (i == 1 || i == 2)
                 listFunctions(i - 1, j);
-            else if (i == 3 || i == 4 || i == 5)
+            else if (i == 3 || i == 4)
                 treeFunctions(i - 1, j);
-            else if (i == 6)
+            else if (i == 5)
                 testModeFunctions(j);
         }
     }
@@ -134,7 +134,11 @@ void Menu::treeFunctions(int i, int j)
         tree->pop(getIntInput("Write a number to delete: "));
         break;
     case 5:
-        tree->find(getIntInput("Write a number to search for: "));
+        if (tree->find(getIntInput("Write a number to search for: ")) != nullptr)
+            std::cout << "Found\n";
+        else
+            std::cout << "Not Found\n";
+        waitForUser();
         break;
     case 6:
     {
@@ -167,7 +171,11 @@ void Menu::testModeFunctions(int j)
         x = getIntInput("how much data to generate: ");
         system("clear");
         str = getStringInput("Write a filename to write to: ");
-        generateFile(str, x);
+        {
+            RandomGenerator gen;
+            gen.generateFile(str, x);
+        }
+
         break;
     case 2:
     {
@@ -203,6 +211,9 @@ void Menu::testModeFunctions(int j)
         break;
     }
     case 5:
+        testLists();
+        break;
+    case 6:
         innerLoop = false;
         break;
     }
@@ -221,90 +232,139 @@ std::string Menu::getStringInput(std::string message)
     std::cin >> x;
     return x;
 }
-void Menu::printProgress(double percentage)
+
+void Menu::testLists()
 {
-    int val = (int)(percentage * 100);
-    int lpad = (int)(percentage * PBWIDTH);
-    int rpad = PBWIDTH - lpad;
-    printf("\r%3d%% [%.*s%*s]", val, lpad, PBSTR, rpad, "");
-    fflush(stdout);
+    int z, y;
+
+    z = getIntInput("How many different sizes do you want to test:");
+    int *x = new int[z];
+
+    std::cout << "Write " << z << " data structure sizes: ";
+    for (int i = 0; i < z; i++)
+        x[i] = getIntInput("");
+    std::cout << "How many times test all " << z << " sizes: ";
+    y = getIntInput("");
+    std::cout << "Testing removeFromFront \n";
+    testLists("removeFront", z, y, x);
+    std::cout << "Testing removeFromBack \n";
+    testLists("removeBack", z, y, x);
+    std::cout << "Testing addBack \n";
+    testLists("addBack", z, y, x);
+    std::cout << "Testing addAtIndex \n";
+    testLists("addAtIndex", z, y, x);
+    delete x;
+    waitForUser();
 }
-
-void Menu::generateFile(std::string filename, int numbers)
+void Menu::testLists(std::string type, int z, int y, int *x)
 {
-    uint32_t seed_val = time(NULL);
-    std::random_device rd;
-    std::seed_seq sd{rd(), rd(), rd(), rd()};
-    std::mt19937 rng(sd);
-    std::uniform_int_distribution<int> uint_dist(-2147483648, 2147483647);
+    Timer timer;
+    double **structure_time_sums = new double *[2]();
+    for (int i = 0; i < 2; i++)
+        structure_time_sums[i] = new double[z]();
 
-    std::ofstream file(filename);
-    for (int i = 0; i < numbers; i++)
-        file << uint_dist(rng) << " ";
+    std::ofstream file_array(type + "Test.txt");
 
-    file.close();
-}
+    RandomGenerator rg;
 
-void Menu::transposeFile(std::string inputFileName, std::string outputFileName)
-{
-    std::ifstream infile(inputFileName);
-
-    std::vector<std::vector<double>> matrix;
-    std::string line;
-    std::vector<double> average;
-
-    while (std::getline(infile, line))
+    if (!file_array)
     {
-        std::vector<double> row;
-        std::string token;
-        std::istringstream iss(line);
+        std::cout << "Unable to create file\n";
+        waitForUser();
+        return;
+    }
 
-        while (std::getline(iss, token, ' '))
+    for (int n = 0; n < z; n++)
+    {
+        std::cout << "Testing " << x[n] << " elements" << '\n';
+        for (int i = 0; i < y; i++)
         {
-            double num = std::stod(token);
-            row.push_back(num);
+            int *arr = rg.generateArrayOfIntegers(x[n]);
+            Array *array = new Array();
+            DoubleLinkedList *dll = new DoubleLinkedList();
+            if (type == "removeFront" || type == "removeBack" || type == "addAtIndex")
+            {
+                for (int j = 0; j < x[n]; j++)
+                {
+                    array->addFront(arr[j]);
+                    dll->addFront(arr[j]);
+                }
+                unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+                shuffle(arr, arr + x[n], std::default_random_engine(seed));
+            }
+
+            for (int j = 0; j < x[n]; j++)
+            {
+                if (type == "removeFront")
+                {
+                    timer.start();
+                    array->removeFromFront();
+                    timer.stop();
+                    structure_time_sums[0][n] += timer.getElapsedTime();
+                    timer.start();
+                    dll->removeFromFront();
+                    timer.stop();
+                    structure_time_sums[1][n] += timer.getElapsedTime();
+                }
+                if (type == "removeBack")
+                {
+                    timer.start();
+                    array->removeFromBack();
+                    timer.stop();
+                    structure_time_sums[0][n] += timer.getElapsedTime();
+                    timer.start();
+                    dll->removeFromBack();
+                    timer.stop();
+                    structure_time_sums[1][n] += timer.getElapsedTime();
+                }
+                if (type == "addBack")
+                {
+                    timer.start();
+                    array->addBack(arr[j]);
+                    timer.stop();
+                    structure_time_sums[0][n] += timer.getElapsedTime();
+                    timer.start();
+                    dll->addBack(arr[j]);
+                    timer.stop();
+                    structure_time_sums[1][n] += timer.getElapsedTime();
+                }
+                if (type == "addAtIndex" && j == x[n] - 1)
+                {
+                    timer.start();
+                    array->addAtIndex(j, arr[j]);
+                    timer.stop();
+                    structure_time_sums[0][n] += timer.getElapsedTime();
+                    timer.start();
+                    dll->addAtIndex(j, arr[j]);
+                    timer.stop();
+                    structure_time_sums[1][n] += timer.getElapsedTime();
+                }
+            }
+            delete array;
+            delete dll;
+            delete[] arr;
         }
-
-        matrix.push_back(row);
+        std::cout << "Finished " << x[n] << " elements" << '\n';
     }
-    infile.close();
-    std::ofstream outfile(outputFileName);
-    int nRows = matrix.size();
-    int nCols = matrix[0].size();
-    std::vector<std::vector<double>> transposedMatrix(nCols, std::vector<double>(nRows));
-    for (int i = 0; i < nRows; i++)
-        for (int j = 0; j < nCols; j++)
-            transposedMatrix[j][i] = matrix[i][j];
 
-    for (int i = 0; i < nCols; i++)
+    file_array << "liczba_danych tablica_dynamiczna double_linked_list\n";
+    for (int i = 0; i < z; i++)
     {
-        double num1 = 0.0;
-        for (int j = 0; j < nRows; j++)
-            num1 += transposedMatrix[i][j];
-        average.push_back(num1 / nRows);
+        file_array << x[i] << " ";
+        for (int j = 0; j < 2; j++)
+        {
+            if (type == "addAtIndex")
+                structure_time_sums[j][i] /= y;
+            else
+                structure_time_sums[j][i] /= y * x[i];
+            file_array << structure_time_sums[j][i] << " ";
+        }
+        file_array << '\n';
     }
 
-    for (auto &num : average)
-        outfile << num << '\n';
+    for (int i = 0; i < 2; i++)
+        delete[] structure_time_sums[i];
 
-    outfile.close();
-}
-
-double *Menu::generateArray(int numbers)
-{
-    uint32_t seed_val = time(NULL);
-    std::random_device rd;
-    std::seed_seq sd{rd(), rd(), rd(), rd()};
-    std::mt19937 rng(sd);
-    std::uniform_int_distribution<int> uint_dist(-2147483648, 2147483647);
-    double *x = new double[numbers];
-    for (int i = 0; i < numbers; i++)
-    {
-        int y = uint_dist(rng);
-        for (int j = 0; j < i; j++)
-            while (x[j] == y)
-                y = uint_dist(rng);
-        x[i] = y;
-    }
-    return x;
+    delete[] structure_time_sums;
+    file_array.close();
 }

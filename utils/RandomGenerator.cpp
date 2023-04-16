@@ -16,7 +16,6 @@ int RandomGenerator::generateRandomInteger()
 
 int *RandomGenerator::generateArrayOfIntegers(size_t size)
 {
-
     int *x = new int[size];
 
     for (int i = 0; i < size; i++)
@@ -28,4 +27,23 @@ int *RandomGenerator::generateArrayOfIntegers(size_t size)
         x[i] = y;
     }
     return x;
+}
+
+void RandomGenerator::generateFile(std::string filename, int numbers)
+{
+
+    std::ofstream file(filename);
+
+    if (!file)
+    {
+        std::cout << "Unable to create file\n";
+        return;
+    }
+    int *x = generateArrayOfIntegers(numbers);
+
+    for (int i = 0; i < numbers; i++)
+        file << x[i] << '\n';
+
+    delete[] x;
+    file.close();
 }

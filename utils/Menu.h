@@ -18,13 +18,9 @@
 #include "../trees/RedAndBlackTree.h"
 #include "../trees/Tree.h"
 #include "../trees/Heap.h"
-#include "../trees/AVLTree.h"
 
 #include "../lists/Array.h"
 #include "../lists/DoubleLinkedList.h"
-
-#define PBSTR "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-#define PBWIDTH 60
 
 class Menu
 {
@@ -39,14 +35,12 @@ private:
     void testModeFunctions(int j);
     int getIntInput(std::string message);
     std::string getStringInput(std::string message);
-    void printProgress(double precentage);
-    void generateFile(std::string filename, int numbers);
-    void transposeFile(std::string inputFileName, std::string outputFileName);
-    double *generateArray(int numbers);
     std::vector<MenuItem> menuItems;
     bool innerLoop;
+    void testLists();
+    void testLists(std::string type, int z, int y, int *x);
     template <class L, class T>
-    void testMode(L l, T t, std::string type);
+    void testMode(L list, T tree, std::string type);
 };
 
 template <class L, class T>
@@ -67,7 +61,7 @@ void Menu::testMode(L list, T tree, std::string type)
     for (int i = 0; i < 5; i++)
         structure_time_sums[i] = new double[z]();
 
-    std::ofstream file_array("pushTest.txt");
+    std::ofstream file_array(type + "Test.txt");
 
     RandomGenerator rg;
 
@@ -88,7 +82,7 @@ void Menu::testMode(L list, T tree, std::string type)
             DoubleLinkedList *dll = new DoubleLinkedList();
             Heap *heap = new Heap();
             RedAndBlackTree *rabt = new RedAndBlackTree();
-            AVLTree *avl = new AVLTree();
+
             if (type == "find" || type == "pop")
             {
                 for (int j = 0; j < x[n]; j++)
@@ -97,7 +91,6 @@ void Menu::testMode(L list, T tree, std::string type)
                     dll->addFront(arr[j]);
                     heap->push(arr[j]);
                     rabt->push(arr[j]);
-                    avl->push(arr[j]);
                 }
                 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
                 shuffle(arr, arr + x[n], std::default_random_engine(seed));
@@ -109,19 +102,17 @@ void Menu::testMode(L list, T tree, std::string type)
                 auto fdll = std::bind(list, dll, arr[j]);
                 auto fheap = std::bind(tree, heap, arr[j]);
                 auto frabt = std::bind(tree, rabt, arr[j]);
-                auto favl = std::bind(tree, avl, arr[j]);
+
                 structure_time_sums[0][n] += timer.getElapsedTime(farr);
                 structure_time_sums[1][n] += timer.getElapsedTime(fdll);
                 structure_time_sums[2][n] += timer.getElapsedTime(fheap);
-                structure_time_sums[3][n] += timer.getElapsedTime(favl);
-                structure_time_sums[4][n] += timer.getElapsedTime(frabt);
+                structure_time_sums[3][n] += timer.getElapsedTime(frabt);
             }
             delete[] arr;
             delete array;
             delete dll;
             delete heap;
             delete rabt;
-            delete avl;
         }
         std::cout << "Finished " << x[n] << " elements" << '\n';
     }
@@ -147,4 +138,5 @@ void Menu::testMode(L list, T tree, std::string type)
 
     waitForUser();
 }
+
 #endif

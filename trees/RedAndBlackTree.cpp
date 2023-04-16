@@ -35,7 +35,10 @@ void RedAndBlackTree::display(const std::string &prefix, const Node *node, bool 
         std::cout << (isLeft ? "├──" : "└──");
 
         // print the value of the node
-        std::cout << node->key << std::endl;
+        if (node->left == nullptr && node->right == nullptr)
+            std::cout << "nil " << node->color << std::endl;
+        else
+            std::cout << node->key << " " << node->color << std::endl;
 
         // enter the next tree level - left and right branch
         display(prefix + (isLeft ? "│   " : "    "), node->left, true);

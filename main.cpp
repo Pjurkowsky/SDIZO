@@ -14,7 +14,7 @@ int main()
   DoubleLinkedList *doubleLinkedList = new DoubleLinkedList();
   Heap *heap = new Heap();
   RedAndBlackTree *rab = new RedAndBlackTree();
-  AVLTree *avl = new AVLTree();
+
   std::vector<MenuItem2> listItems = {{"display"},
                                       {"addFront"},
                                       {"addBack"},
@@ -40,13 +40,13 @@ int main()
                                           {"test PUSH operation on every data structure x times"},
                                           {"test POP operation on every data structure x times"},
                                           {"test FIND operation on every data structure x times"},
+                                          {"test list only methods x times"},
                                           {"exit"}};
 
   std::vector<MenuItem> menuItems = {{"Array", array, {listItems}},
                                      {"Double Linked List", doubleLinkedList, {listItems}},
                                      {"Heap", heap, {treeItems}},
                                      {"Red and Black Tree", rab, {treeItems}},
-                                     {"AVL Tree", avl, {treeItems}},
                                      {"Test mode", nullptr, {testModeItems}},
                                      {"exit", nullptr, {}}};
 
