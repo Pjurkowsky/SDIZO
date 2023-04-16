@@ -1,5 +1,11 @@
 #include "Menu.h"
 
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
+
 Menu::Menu(std::vector<MenuItem> menuItems) : menuItems(menuItems), innerLoop(false)
 {
 }
@@ -9,7 +15,7 @@ void Menu::run()
     while (true)
     {
         int i = 1;
-        system("clear");
+        system(CLEAR);
         for (auto item : menuItems)
             std::cout << i++ << ": " << item.str << "\n";
         std::cin >> i;
@@ -18,7 +24,7 @@ void Menu::run()
         innerLoop = true;
         while (innerLoop)
         {
-            system("clear");
+            system(CLEAR);
             int j = 1;
             for (auto item : menuItems[i - 1].menuItems)
                 std::cout << j++ << ": " << item.str << "\n";
@@ -50,7 +56,7 @@ void Menu::listFunctions(int i, int j)
     switch (j)
     {
     case 1:
-        system("clear");
+        system(CLEAR);
         std::cout << list->toString();
         waitForUser();
         break;
@@ -107,12 +113,12 @@ void Menu::treeFunctions(int i, int j)
     switch (j)
     {
     case 1:
-        system("clear");
+        system(CLEAR);
         std::cout << menuItems[i].structure->toString() << '\n';
         waitForUser();
         break;
     case 2:
-        system("clear");
+        system(CLEAR);
         tree->display();
         waitForUser();
         break;
@@ -127,7 +133,7 @@ void Menu::treeFunctions(int i, int j)
         double essa = elapsed.count();
         std::cout << essa;
         waitForUser();
-        system("clear");
+        system(CLEAR);
     }
     break;
     case 4:
@@ -169,7 +175,7 @@ void Menu::testModeFunctions(int j)
     {
     case 1:
         x = getIntInput("how much data to generate: ");
-        system("clear");
+        system(CLEAR);
         str = getStringInput("Write a filename to write to: ");
         {
             RandomGenerator gen;

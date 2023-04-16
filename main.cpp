@@ -1,12 +1,15 @@
 #include <iostream>
+#include <vector>
+
 #include "lists/DoubleLinkedList.h"
 #include "lists/Array.h"
-#include "trees/Heap.h"
+
+#include "utils/RandomGenerator.h"
 #include "utils/Menu.h"
 #include "utils/Timer.h"
+
 #include "trees/RedAndBlackTree.h"
-#include <vector>
-#include "utils/RandomGenerator.h"
+#include "trees/Heap.h"
 
 int main()
 {
