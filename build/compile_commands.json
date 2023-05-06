@@ -1,0 +1,49 @@
+[
+{
+  "directory": "/home/pjury/Desktop/sdizo/project1/build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/program.dir/main.cpp.o -c /home/pjury/Desktop/sdizo/project1/main.cpp",
+  "file": "/home/pjury/Desktop/sdizo/project1/main.cpp"
+},
+
+{
+  "directory": "/home/pjury/Desktop/sdizo/project1/build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/program.dir/lists/DoubleLinkedList.cpp.o -c /home/pjury/Desktop/sdizo/project1/lists/DoubleLinkedList.cpp",
+  "file": "/home/pjury/Desktop/sdizo/project1/lists/DoubleLinkedList.cpp"
+},
+
+{
+  "directory": "/home/pjury/Desktop/sdizo/project1/build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/program.dir/lists/Array.cpp.o -c /home/pjury/Desktop/sdizo/project1/lists/Array.cpp",
+  "file": "/home/pjury/Desktop/sdizo/project1/lists/Array.cpp"
+},
+
+{
+  "directory": "/home/pjury/Desktop/sdizo/project1/build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/program.dir/trees/Heap.cpp.o -c /home/pjury/Desktop/sdizo/project1/trees/Heap.cpp",
+  "file": "/home/pjury/Desktop/sdizo/project1/trees/Heap.cpp"
+},
+
+{
+  "directory": "/home/pjury/Desktop/sdizo/project1/build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/program.dir/trees/RedAndBlackTree.cpp.o -c /home/pjury/Desktop/sdizo/project1/trees/RedAndBlackTree.cpp",
+  "file": "/home/pjury/Desktop/sdizo/project1/trees/RedAndBlackTree.cpp"
+},
+
+{
+  "directory": "/home/pjury/Desktop/sdizo/project1/build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/program.dir/utils/Menu.cpp.o -c /home/pjury/Desktop/sdizo/project1/utils/Menu.cpp",
+  "file": "/home/pjury/Desktop/sdizo/project1/utils/Menu.cpp"
+},
+
+{
+  "directory": "/home/pjury/Desktop/sdizo/project1/build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/program.dir/utils/Timer.cpp.o -c /home/pjury/Desktop/sdizo/project1/utils/Timer.cpp",
+  "file": "/home/pjury/Desktop/sdizo/project1/utils/Timer.cpp"
+},
+
+{
+  "directory": "/home/pjury/Desktop/sdizo/project1/build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/program.dir/utils/RandomGenerator.cpp.o -c /home/pjury/Desktop/sdizo/project1/utils/RandomGenerator.cpp",
+  "file": "/home/pjury/Desktop/sdizo/project1/utils/RandomGenerator.cpp"
+}
+]
