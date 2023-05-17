@@ -55,6 +55,5 @@ int main()
 
   Menu menu(menuItems);
   menu.run();
-
   return 0;
 }

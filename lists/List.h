@@ -13,6 +13,7 @@ public:
     virtual void addAtIndex(int index, int data) = 0; // insert a node at index
     virtual void removeFromFront() = 0;               // delete a node from front
     virtual void removeFromBack() = 0;                // delete a node from back
+    virtual void removeFromIndex(int index) = 0;      // delete a node from index
     virtual void remove(int data) = 0;                // delete a node
     virtual bool find(int data) = 0;                  // find a node
 };

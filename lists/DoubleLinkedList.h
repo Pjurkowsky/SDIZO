@@ -18,6 +18,7 @@ public:
     void addAtIndex(int index, int data); // insert a node at index
     void removeFromFront();               // delete a node from front
     void removeFromBack();                // delete a node from back
+    void removeFromIndex(int index);      // delete a node from index
     void remove(int data);                // delete a node
     bool find(int number);                // find a node
 

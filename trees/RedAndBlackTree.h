@@ -30,6 +30,7 @@ public:
     Node *find(int data);                                                   // find a node
 
 private:
+    Node *findHelper(Node *node, int data);                   // find a node
     void inorderTraversal(Node *root, std::stringstream &ss); // traverse the tree in order
     void pushFix(Node *k);                                    // fix the tree after insertion
     void popFix(Node *z);                                     // fix the tree after deletion

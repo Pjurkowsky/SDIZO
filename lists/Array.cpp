@@ -52,7 +52,7 @@ void Array::addBack(int data)
     // otherwise add element to array by copying array to temp array and adding element to back
     _length++;
     int *temp = new int[_length];
-    std::memcpy(temp, _data, _length * sizeof(int));
+    std::memcpy(temp, _data, (_length - 1) * sizeof(int));
     temp[_length - 1] = data;
     // delete old array and set new array to temp array
     delete[] _data;
@@ -61,13 +61,19 @@ void Array::addBack(int data)
 // adds data to array at index
 void Array::addAtIndex(int index, int data)
 {
+    if (_length == 0)
+    {
+        addFront(data); // if array is empty add first element}
+        return;
+    }
     if (_length < index) // if index is out of bounds return
         return;
     // otherwise add element to array by copying array to temp array and adding element to index
+
     _length++;
     int *temp = new int[_length];
-    std::memcpy(temp, _data, _length * sizeof(int));
-    std::memcpy(temp + index + 1, temp + index, (_length - index) * sizeof(int));
+    std::memcpy(temp, _data, index * sizeof(int));
+    std::memcpy(temp + index + 1, _data + index, (_length - index - 1) * sizeof(int));
     temp[index] = data;
     // delete old array and set new array to temp array
     delete[] _data;
@@ -121,6 +127,25 @@ void Array::remove(int data)
     delete[] _data;
     _data = temp;
 }
+
+void Array::removeFromIndex(int index)
+{
+    if (_length == 0)
+        return;
+    if (_length <= index)
+        return;
+    if (index < 0)
+        return;
+
+    _length--;
+    int *temp = new int[_length];
+    std::memcpy(temp, _data, index * sizeof(int));
+    std::memcpy(temp + index, _data + index + 1, (_length - index) * sizeof(int));
+
+    delete[] _data;
+    _data = temp;
+}
+
 // returns data at index
 bool Array::find(int data)
 {

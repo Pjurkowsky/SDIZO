@@ -77,7 +77,7 @@ void Menu::listFunctions(int i, int j)
         list->removeFromBack();
         break;
     case 7:
-        list->remove(getIntInput("Write a index to remove: "));
+        list->removeFromIndex(getIntInput("Write a index to remove: "));
         break;
     case 8:
         str = list->find(getIntInput("Write a number to search for: ")) ? "Found" : "Not Found";
@@ -245,6 +245,7 @@ void Menu::testLists()
         x[i] = getIntInput("");
     std::cout << "How many times test all " << z << " sizes: ";
     y = getIntInput("");
+
     std::cout << "Testing removeFromFront \n";
     testLists("removeFront", z, y, x);
     std::cout << "Testing removeFromBack \n";
@@ -294,53 +295,63 @@ void Menu::testLists(std::string type, int z, int y, int *x)
                 shuffle(arr, arr + x[n], std::default_random_engine(seed));
             }
 
+            int tempArray[2];
+
             for (int j = 0; j < x[n]; j++)
             {
-                if (type == "removeFront")
+                if (type == "removeFront" && j == 0)
                 {
                     timer.start();
                     array->removeFromFront();
                     timer.stop();
-                    structure_time_sums[0][n] += timer.getElapsedTime();
+                    tempArray[0] = timer.getElapsedTime();
+
                     timer.start();
                     dll->removeFromFront();
                     timer.stop();
-                    structure_time_sums[1][n] += timer.getElapsedTime();
+                    tempArray[1] = timer.getElapsedTime();
                 }
-                if (type == "removeBack")
+                if (type == "removeBack" && j == 0)
                 {
                     timer.start();
                     array->removeFromBack();
                     timer.stop();
-                    structure_time_sums[0][n] += timer.getElapsedTime();
+                    tempArray[0] = timer.getElapsedTime();
+
                     timer.start();
                     dll->removeFromBack();
                     timer.stop();
-                    structure_time_sums[1][n] += timer.getElapsedTime();
+                    tempArray[1] = timer.getElapsedTime();
                 }
                 if (type == "addBack")
                 {
                     timer.start();
                     array->addBack(arr[j]);
                     timer.stop();
-                    structure_time_sums[0][n] += timer.getElapsedTime();
+                    tempArray[0] = timer.getElapsedTime();
+
                     timer.start();
                     dll->addBack(arr[j]);
                     timer.stop();
-                    structure_time_sums[1][n] += timer.getElapsedTime();
+                    tempArray[1] = timer.getElapsedTime();
                 }
+
                 if (type == "addAtIndex" && j == x[n] - 1)
                 {
                     timer.start();
                     array->addAtIndex(j, arr[j]);
                     timer.stop();
-                    structure_time_sums[0][n] += timer.getElapsedTime();
+                    tempArray[0] = timer.getElapsedTime();
+
                     timer.start();
                     dll->addAtIndex(j, arr[j]);
                     timer.stop();
-                    structure_time_sums[1][n] += timer.getElapsedTime();
+                    tempArray[1] = timer.getElapsedTime();
                 }
             }
+            structure_time_sums[0][n] += tempArray[0];
+            structure_time_sums[1][n] += tempArray[1];
+
             delete array;
             delete dll;
             delete[] arr;
@@ -356,8 +367,6 @@ void Menu::testLists(std::string type, int z, int y, int *x)
         {
             if (type == "addAtIndex")
                 structure_time_sums[j][i] /= y;
-            else
-                structure_time_sums[j][i] /= y * x[i];
             file_array << structure_time_sums[j][i] << " ";
         }
         file_array << '\n';

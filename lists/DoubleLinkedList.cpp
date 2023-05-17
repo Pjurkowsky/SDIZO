@@ -131,10 +131,34 @@ void DoubleLinkedList::removeFromBack()
     tail->next = nullptr;
 }
 
+void DoubleLinkedList::removeFromIndex(int index)
+{
+    int i = 0;
+    Node *current = head;
+    while (current != nullptr) // iterate through list until index is reached
+    {
+        if (i == index) // if index is reached add node
+        {
+            if (current->prev != nullptr) // if node is not head
+                current->prev->next = current->next;
+            if (current->next != nullptr) // if node is not tail
+                current->next->prev = current->prev;
+            if (current == head) // if node is head
+                head = current->next;
+            if (current == tail) // if node is tail
+                tail = current->prev;
+
+            delete current;
+            return;
+        }
+        current = current->next;
+        i++;
+    }
+}
+
 // removes element at index from list
 void DoubleLinkedList::remove(int data)
 {
-    int i = 0;
     Node *current = head;
     while (current != nullptr) // iterate through list until index is reached
     {

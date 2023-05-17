@@ -97,18 +97,28 @@ void Menu::testMode(L list, T tree, std::string type)
                 shuffle(arr, arr + x[n], std::default_random_engine(seed));
             }
 
-            for (int j = 0; j < x[n] - 1; j++)
+            int tempArray[4];
+            int temp = x[n];
+            if (type == "find" || type == "pop")
+                x[n] = 1;
+            for (int j = 0; j < x[n]; j++)
             {
                 auto farr = std::bind(list, array, arr[j]);
                 auto fdll = std::bind(list, dll, arr[j]);
                 auto fheap = std::bind(tree, heap, arr[j]);
                 auto frabt = std::bind(tree, rabt, arr[j]);
 
-                structure_time_sums[0][n] += timer.getElapsedTime(farr);
-                structure_time_sums[1][n] += timer.getElapsedTime(fdll);
-                structure_time_sums[2][n] += timer.getElapsedTime(fheap);
-                structure_time_sums[3][n] += timer.getElapsedTime(frabt);
+                tempArray[0] = timer.getElapsedTime(farr);
+                tempArray[1] = timer.getElapsedTime(fdll);
+                tempArray[2] = timer.getElapsedTime(fheap);
+                tempArray[3] = timer.getElapsedTime(frabt);
             }
+
+            structure_time_sums[0][n] += tempArray[0];
+            structure_time_sums[1][n] += tempArray[1];
+            structure_time_sums[2][n] += tempArray[2];
+            structure_time_sums[3][n] += tempArray[3];
+            x[n] = temp;
             delete[] arr;
             delete array;
             delete dll;
@@ -124,7 +134,7 @@ void Menu::testMode(L list, T tree, std::string type)
         file_array << x[i] << " ";
         for (int j = 0; j < 5; j++)
         {
-            structure_time_sums[j][i] /= y * x[i];
+            structure_time_sums[j][i] /= y;
             file_array << structure_time_sums[j][i] << " ";
         }
         file_array << '\n';

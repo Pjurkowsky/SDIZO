@@ -273,15 +273,17 @@ void RedAndBlackTree::popFix(Node *x)
 // find a node
 typename RedAndBlackTree::Node *RedAndBlackTree::find(int data)
 {
-    Node *current = root;
-    while (current != nil && current->key != data)
-    {
-        if (data < current->key)
-            current = current->left;
-        else
-            current = current->right;
-    }
-    return current;
+    return findHelper(root, data);
+}
+
+typename RedAndBlackTree::Node *RedAndBlackTree::findHelper(Node *node, int value)
+{
+    if (node == nullptr || node->key == value)
+        return node;
+    else if (value < node->key)
+        return findHelper(node->left, value);
+    else
+        return findHelper(node->right, value);
 }
 
 // traverse the tree in order
